@@ -1,5 +1,6 @@
 package br.com.senai.sa6uc9.controller;
 
+import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,17 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import br.com.senai.sa6uc9.orm.Agendamento;
-import br.com.senai.sa6uc9.orm.Cadastro;
 import br.com.senai.sa6uc9.servico.AgendamentoServico;
-import br.com.senai.sa6uc9.servico.CadastroServico;
 
 @Controller
-public class sa6uc9Controller {
+public class agendamentoController {
 	
 	@Autowired
 	private AgendamentoServico servico;
-
-	private CadastroServico servicoCadastro;
 	
 	@GetMapping({"/agendamento", "/"})
 	public String listarAgendamento(Model modelo) {
@@ -63,34 +60,10 @@ public class sa6uc9Controller {
 		servico.atualizarAgendamentos(age);
 		return "redirect:/agendamento";
 	}
-	
-	@GetMapping("/cadastro/adicionar")
-	public String adicionarCadastros(Model modelo) {
-		Cadastro cadastro = new Cadastro();
-		modelo.addAttribute("cadastros", cadastro);
-		return "formCadastro";
+	@GetMapping("/agendamento/{nome_usuario}")
+	public String listarMeusAgendamentos(Model model, Principal principal) {
+	    model.addAttribute("agendamento", servico.listarMeusAgendamentos());
+	    return "redirect:/agendamento";
 	}
 	
-	@PostMapping("/cadastro")
-	public String salvarCadastros(@ModelAttribute("cadastros") Cadastro cadastro) {
-		servicoCadastro.salvarCadastros(cadastro);
-		return "redirect:/cadastro";
-	}
-	
-	@GetMapping({"/cadastro/editar/{id}"})
-	public String editarCadastros(@PathVariable Integer id, Model modelo) {
-		modelo.addAttribute("cadastro", servicoCadastro.consultarCadastrosId(id));
-		return "editarCadastro";
-	}
-	@PostMapping("/cadastro/{id}")
-	public String atualizarCadastros(@PathVariable Integer id, @ModelAttribute("cadastro") Cadastro cadastro, Model modelo) {
-		Cadastro cad = servicoCadastro.consultarCadastrosId(id);
-		cad.setId(id);
-		cad.setNome(cadastro.getNome());
-		cad.setEmail(cadastro.getEmail());
-		cad.setApartamento(cadastro.getApartamento());
-		cad.setBloco(cadastro.getBloco());
-		servicoCadastro.atualizarCadastros(cad);
-		return "redirect:/cadastro";
-	}
 }

@@ -30,5 +30,12 @@ public class CadastroServicoCRUD {
 	public Cadastro salvarCadastros(Cadastro cadastro) {
 		return repositorio.save(cadastro);
 	}
+	
+	public Cadastro consultarPorEmail(String email) {
+		return repositorio.findByEmail(email).get();
+	}
+	public List<Cadastro> listarCadastro() {
+		return (List<Cadastro>) repositorio.findAll();	
+		}
 }
 

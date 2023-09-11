@@ -5,6 +5,7 @@ import java.util.List;
 import br.com.senai.sa6uc9.orm.Agendamento;
 
 public interface AgendamentoServico {
+	
 	public List<Agendamento> listarAgendamentos();
 	
 	public void apagarAgendamentos(Integer id);
@@ -14,4 +15,6 @@ public interface AgendamentoServico {
 	public Agendamento atualizarAgendamentos(Agendamento agendamento);
 	
 	public Agendamento salvarAgendamentos(Agendamento agendamento);
+
+	List<Agendamento> listarMeusAgendamentos();
 }
