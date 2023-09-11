@@ -35,8 +35,11 @@ public class AgendamentoServicoCRUD implements AgendamentoServico {
 		return repositorio.save(agendamento);
 	}
 
-	@Override
 	public Agendamento salvarAgendamentos(Agendamento agendamento) {
 		return repositorio.save(agendamento);
 	}
+
+	@Override
+	public List<Agendamento> listarMeusAgendamentos() {
+		return (List<Agendamento>) repositorio.findAll();	}
 }

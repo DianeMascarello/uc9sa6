@@ -12,4 +12,9 @@ public List<Cadastro> listarCadastros();
 	public Cadastro atualizarCadastros(Cadastro cadastro);
 	
 	public Cadastro salvarCadastros(Cadastro cadastro);
+
+	public Cadastro consultarPorEmail(String email);
+	
+	List<Cadastro> listarMeuCadastro();
+
 }
